@@ -30,7 +30,5 @@ def check_huntington_risk(sequence):
         status = "Pathogenic"
         
     return max_repeats, status
-    
-dna_sample = "CAGCAGCAGCAGCAGCAGCAGCAGCAGCAG" 
-# Пример
-print(f"Repeats: {check_huntington_risk(dna_sample)}")
+    dna_sample = "CAGCAGCAGCAGCAGCAGCAGCAGCAGCAG" # Пример
+    print(f"Repeats: {check_huntington_risk(dna_sample)}")
