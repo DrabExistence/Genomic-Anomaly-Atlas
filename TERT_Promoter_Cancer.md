@@ -8,6 +8,10 @@ Theory: The TERT gene is responsible for completing the ends of chromosomes (tel
 The anomaly: A simple change of one letter in the "junk" region causes the gene to turn on at full power. The cell stops aging and begins to divide endlessly, turning into a tumor.
 
 For the Architect: This is an example of how a mutation outside the gene can be more dangerous than a mutation within the gene.
+
+These mutations don't just change a letter. They create a new landing pad for proteins (ETS transcription factors).
+Imagine a factory (gene) with a fence. A mutation is a hole in the fence through which "illegal" workers (proteins) begin to enter and start production (telomerase) when the factory should be closed.
+
 # Python
 ```python
 def analyze_tert_promoter(sequence, offset=0):
