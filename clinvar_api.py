@@ -117,3 +117,23 @@ list_results = get_clinvar_significance_for_list(rs_numbers_to_check)
 print("\nClinVar Status for list of rs-numbers:")
 for rs_id, significance in list_results.items():
     print(f"  {rs_id}: {significance}")
+
+def load_rs_from_file(filepath):
+    """
+    Загружает список rs-номеров из текстового файла.
+    Предполагается, что каждый rs-номер находится на новой строке.
+    """
+    rs_ids = []
+    try:
+        with open(filepath, 'r') as f:
+            for line in f:
+                stripped_line = line.strip()
+                if stripped_line: # Проверка на пустые строки
+                    rs_ids.append(stripped_line)
+        return rs_ids
+    except FileNotFoundError:
+        print(f"Ошибка: Файл не найден по пути: {filepath}")
+        return []
+    except Exception as e:
+        print(f"Произошла ошибка при чтении файла: {e}")
+        return []
