@@ -9,8 +9,7 @@ A rare "gain-of-function" mutation at position 171. This makes the bone-building
 ## 💻 Logic
 The pipeline scans the LRP5 sequence for a specific amino acid change (D->V) caused by a nucleotide substitution.
 
-Detection Code:
-# Python
+# Detection Code: Python
 ```python
 def check_titan_bones(sequence, pos_in_seq):
     # Мутация D171V: замена аспартата на валин. 
