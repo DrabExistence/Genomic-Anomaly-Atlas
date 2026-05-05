@@ -14,22 +14,29 @@ In this file we will describe the logic of the "Universal Analyzer".
 
 Python
 ```python
+import re
+
 def universal_genomic_scanner(sequence):
     print("--- Starting Genomic Analysis Pipeline ---")
     
-    # 1. Анализ структуры (GC-состав)
+    # 1. GC-Content (Работает отлично!)
     gc = (sequence.count('G') + sequence.count('C')) / len(sequence) * 100
     print(f"[STEP 1] GC-Content: {gc:.2f}%")
     
-    # 2. Поиск критических мутаций (терминальный поиск)
-    if "CCCGG" in sequence: # Пример сигнатуры
-        print("[STEP 2] Alert: Potential regulatory mutation found!")
-        
-    # 3. Проверка на аномальные повторы
-    import re
+    # 2. Поиск мутации TERT (Исправлено)
+    # Проверяем 228-й нуклеотид (помним, что в Python счет с 0)
+    if len(sequence) > 228:
+        if sequence[228] == 'T':
+            print("[STEP 2] ALERT: TERT Promoter Mutation (C228T) detected! Immortality switch ON.")
+    
+    # 3. Поиск повторов CAG (Работает отлично!)
     repeats = re.findall(r'(?:CAG){3,}', sequence)
     if repeats:
-        print(f"[STEP 3] Repeat Expansion: Found {len(repeats[0])//3} CAG repeats")
+        count = len(max(repeats, key=len)) // 3
+        if count >= 36:
+            print(f"[STEP 3] PATHOGENIC REPEAT: Found {count} CAG repeats (Huntington Risk)")
+        else:
+            print(f"[STEP 3] Normal repeats: {count} CAG")
         
     print("--- Analysis Complete ---")
 
@@ -63,11 +70,12 @@ Checking Normal DNA:
 Checking Cancer Risk DNA:
 --- Starting Genomic Analysis Pipeline ---
 [STEP 1] GC-Content: 99.64%
+[STEP 2] ALERT: TERT Promoter Mutation (C228T) detected! Immortality switch ON.
 --- Analysis Complete ---
 
 Checking Huntington DNA:
 --- Starting Genomic Analysis Pipeline ---
 [STEP 1] GC-Content: 65.73%
-[STEP 3] Repeat Expansion: Found 45 CAG repeats
+[STEP 3] PATHOGENIC REPEAT: Found 45 CAG repeats (Huntington Risk)
 --- Analysis Complete ---
 ```
