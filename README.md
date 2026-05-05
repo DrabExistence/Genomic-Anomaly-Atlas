@@ -32,6 +32,11 @@ Using computational methods to "see" the genome's structure.
 Moving from manual analysis to automated workflows.
 * **[Genomic Pipeline](Genomic_Pipeline.md):** An integrated master script that combines GC-profiling, SNP detection, and repeat expansion checks into a single analytical run.
 
+### 7: Biohacking & Human Augmentation
+Exploring genetic variants that enhance human capabilities.
+* **[Sirtuin 1 (SIRT1)](Longevity_sirt1.md):** The "longevity gene" linked to DNA repair and lifespan extension.
+* **[LRP5 (D171V)](Titan_bones.md):** The "titan bone" mutation causing extreme bone density and fracture resistance.
+
 ---
 
 ## 🛠 Tech Stack & Methodology
