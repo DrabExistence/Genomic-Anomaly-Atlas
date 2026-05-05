@@ -37,6 +37,11 @@ Exploring genetic variants that enhance human capabilities.
 * **[Sirtuin 1 (SIRT1)](Longevity_sirt1.md):** The "longevity gene" linked to DNA repair and lifespan extension.
 * **[LRP5 (D171V)](Titan_bones.md):** The "titan bone" mutation causing extreme bone density and fracture resistance.
 
+### 8: API Integration
+The atlas is now connected to the **NCBI ClinVar** database. 
+* Automatically fetches clinical significance (Pathogenic, Benign, etc.) for detected variants.
+* Supports batch processing for large-scale genomic datasets.
+
 ---
 
 ## 🛠 Tech Stack & Methodology
