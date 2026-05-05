@@ -24,6 +24,10 @@ Single letter changes that alter enzyme function or disease predisposition.
 Mutations in the "switches" of our genome that control gene expression.
 * **[TERT Promoter](TERT_Promoter_Cancer.md):** Investigating the "immortality switch" in cancer cells.
 
+### 5: Genomic Visualization
+Using computational methods to "see" the genome's structure.
+* **[Visual Genome Analysis](Visual_Genome_Analysis.md):** Sliding window algorithm for GC-content distribution and promoter identification.
+
 ---
 
 ## 🛠 Tech Stack & Methodology
