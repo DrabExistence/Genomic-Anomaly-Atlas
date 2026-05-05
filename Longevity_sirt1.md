@@ -10,8 +10,7 @@
 ## 💻 Logic
 The pipeline checks for the presence of the **G** allele at the target position to identify potential for "exceptional longevity."
 
-Definition code (for pipeline insertions):
-# Python
+# Definition code (for pipeline insertions): Python
 ```python
 def check_longevity_sirt1(sequence, pos_in_seq):
     # Допустим, мы знаем, что rs7069102 находится в определенной позиции нашего фрагмента
