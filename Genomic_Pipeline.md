@@ -34,4 +34,40 @@ def universal_genomic_scanner(sequence):
     print("--- Analysis Complete ---")
 
 # Твой пайплайн готов к работе с любыми данными!
+
+# 1. Здоровый образец (Нормальный GC-состав, нет мутаций)
+normal_dna = "ATGCCGTAGTCGATAGCGATGCTAGTCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCG"
+
+# 2. Образец с риском онкологии (Высокий GC + мутация в промоторе TERT)
+# Здесь мы имитируем позицию 228 с заменой на T
+cancer_risk_dna = "G" * 228 + "T" + "G" * 50 
+
+# 3. Образец с Болезнью Гентингтона (Длинный повтор CAG)
+huntington_dna = "ATGC" + "CAG" * 45 + "TAGC"
+
+# ТЕСТИРОВАНИЕ:
+print("Checking Normal DNA:")
+universal_genomic_scanner(normal_dna)
+
+print("\nChecking Cancer Risk DNA:")
+universal_genomic_scanner(cancer_risk_dna)
+
+print("\nChecking Huntington DNA:")
+universal_genomic_scanner(huntington_dna)
+
+Checking Normal DNA:
+--- Starting Genomic Analysis Pipeline ---
+[STEP 1] GC-Content: 51.39%
+--- Analysis Complete ---
+
+Checking Cancer Risk DNA:
+--- Starting Genomic Analysis Pipeline ---
+[STEP 1] GC-Content: 99.64%
+--- Analysis Complete ---
+
+Checking Huntington DNA:
+--- Starting Genomic Analysis Pipeline ---
+[STEP 1] GC-Content: 65.73%
+[STEP 3] Repeat Expansion: Found 45 CAG repeats
+--- Analysis Complete ---
 ```
