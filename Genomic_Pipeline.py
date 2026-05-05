@@ -1,54 +1,46 @@
-import re
-from Bio import Entrez
-
-def get_clinvar_info(rs_id):
-    """Интеграция с базой ClinVar через API."""
-    try:
-        Entrez.email = "architect@example.com"
-        search = Entrez.esearch(db="clinvar", term=f"{rs_id}[Variant ID]")
-        res = Entrez.read(search)
-        if res['IdList']:
-            summ = Entrez.read(Entrez.esummary(db="clinvar", id=res['IdList'][0]))
-            return summ['DocumentSummarySet']['DocumentSummary'][0]['clinical_significance']['description']
-        return "Not found in ClinVar"
-    except:
-        return "ClinVar API Error"
+import re  # Стандартная библиотека для поиска текста
+from Bio import Entrez  # Библиотека для работы с биологическими БД
+from clinvar_api import get_clinvar_significance  # новый модуль связи с ClinVar
 
 def universal_genomic_scanner(sequence):
-    print("\n" + "="*40)
-    print("🚀 GENOMIC ANOMALY SCANNER v2.0")
-    print("="*40)
+    print("\n" + "="*45)
+    print("🚀 STARTING MULTI-LEVEL GENOMIC SCAN v3.0")
+    print("="*45)
     
-    # 1. Анализ GC-состава
+    # 1. Расчет GC-состава
     gc = (sequence.count('G') + sequence.count('C')) / len(sequence) * 100
     print(f"📊 [STRUCTURAL] GC-Content: {gc:.2f}%")
     
-    # 2. Проверка TERT (Рак)
-    if len(sequence) > 228 and sequence[228] == 'T':
-        print("🚨 [ALERT] TERT Mutation Found: C228T (Immortality Switch ON)")
-    
-    # 3. Проверка Huntington (Повторы)
+    # 2. ПРОВЕРКА ПОВТОРОВ (HTT)
     repeats = re.findall(r'(?:CAG){3,}', sequence)
     if repeats:
         count = len(max(repeats, key=len)) // 3
         status = "⚠️ PATHOGENIC" if count >= 36 else "✅ NORMAL"
         print(f"🧬 [REPEATS] HTT Gene: {count} CAG repeats ({status})")
-    
-    # 4. Проверка SIRT1 (Долголетие)
-    # Имитируем, что маркер долголетия проверяется в начале фрагмента
+    else:
+        print(f"🧬 [REPEATS] HTT Gene: No expansions detected (Normal)")
+
+    # 3. ПРОВЕРКА SIRT1 (Долголетие)
     if sequence[0] == 'G':
         print("🌟 [BIOHACK] SIRT1: Longevity Variant 'G' detected!")
-        # Проверяем ClinVar для подтверждения
-        # print(f"   └─ ClinVar says: {get_clinvar_info('rs7069102')}")
+        print("🔍 Connecting to ClinVar to verify...")
+        clinical_status = get_clinvar_significance('rs7069102') 
+        print(f"   └─ Official Scientific Status: {clinical_status}")
 
-    # 5. Проверка LRP5 (Кости-титан)
-    # Имитируем позицию 171
+    # 4. ПРОВЕРКА LRP5 (Кости-титан)
     if len(sequence) > 171 and sequence[171] == 'T':
-        print("🦾 [SUPERPOWER] LRP5: TITAN BONES mutation detected (D171V)!")
+        print("🦾 [SUPERPOWER] LRP5: High Bone Density variant found!")
+        print("🔍 Verifying Clinical Significance...")
+        clinical_status = get_clinvar_significance('rs121908675')
+        print(f"   └─ ClinVar Result: {clinical_status}")
 
-    print("="*40 + "\n")
+    # 5. ПРОВЕРКА TERT (Кнопка рака)
+    if len(sequence) > 228 and sequence[228] == 'T':
+        print("🚨 [CANCER RISK] TERT Promoter Mutation Found (C228T)")
 
-# ТЕСТОВЫЕ ДАННЫЕ
-# Генерируем "Супер-образец": SIRT1(G) + LRP5(T)
-super_human_dna = "G" + ("A" * 170) + "T" + ("C" * 100)
+    print("="*45 + "\n")
+
+# ТЕСТОВЫЕ ДАННЫЕ (Полная проверка всех систем)
+# Добавили CAG-повторы, чтобы пункт 2 тоже сработал
+super_human_dna = "G" + ("CAG" * 40) + ("A" * 48) + "T" + ("A" * 56) + "T" + ("C" * 20)
 universal_genomic_scanner(super_human_dna)
