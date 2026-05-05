@@ -28,6 +28,10 @@ Mutations in the "switches" of our genome that control gene expression.
 Using computational methods to "see" the genome's structure.
 * **[Visual Genome Analysis](Visual_Genome_Analysis.md):** Sliding window algorithm for GC-content distribution and promoter identification.
 
+### 6: AI-Driven Pipeline & Automation
+Moving from manual analysis to automated workflows.
+* **[Genomic Pipeline](Genomic_Pipeline.md):** An integrated master script that combines GC-profiling, SNP detection, and repeat expansion checks into a single analytical run.
+
 ---
 
 ## 🛠 Tech Stack & Methodology
