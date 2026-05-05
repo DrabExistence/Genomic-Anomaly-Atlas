@@ -48,6 +48,7 @@ The atlas is now connected to the **NCBI ClinVar** database.
 * **Logic & Architecture:** Theoretical modeling of genetic pathways.
 * **Analysis:** Python-based scripts for sequence processing and pattern recognition.
 * **AI-Assisted Research:** Leveraging Large Language Models to interpret complex biological data.
+* **External Data: Real-time NCBI ClinVar API integration via Biopython.
 
 ## 👨‍🔬 About the Author
 I am an **AI-Bioinformatics Architect** focused on automating the analysis of genetic data and building intuitive tools for genomic interpretation. 
