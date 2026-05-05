@@ -1,8 +1,16 @@
-# Titan Bones Gene: LRP5 (D171V)
-Description: The mutation causes the Wnt signaling pathway to be constantly active, resulting in extremely high bone density. People with this mutation are literally "unbreakable."
+# LRP5: High Bone Mass (Titan Bones)
+
+## 🧬 Biology
+The **LRP5** gene is involved in the Wnt signaling pathway, which controls bone formation. 
+
+## 🔍 Mutation: D171V (Aspartate to Valine)
+A rare "gain-of-function" mutation at position 171. This makes the bone-building process nearly unstoppable, resulting in bones that are almost impossible to break.
+
+## 💻 Logic
+The pipeline scans the LRP5 sequence for a specific amino acid change (D->V) caused by a nucleotide substitution.
 
 Detection Code:
-Python
+# Python
 ```python
 def check_titan_bones(sequence, pos_in_seq):
     # Мутация D171V: замена аспартата на валин. 
