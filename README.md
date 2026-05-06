@@ -53,7 +53,7 @@ Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline 
     ```
 
 ### 3. Interactive Demo
-* **Step 1:** Open the **[Demo Notebook](https://colab.research.google.com/github/DrabExistence/genomic-anomaly-atlas/blob/main/Demo_Colab.ipynb)** in Google Colab.
+* **Step 1:** Open the **[Demo Notebook](https://colab.research.google.com/github/DrabExistence/genomic-anomaly-atlas/blob/main/Demo_Colab(new).ipynb)** in Google Colab.
 * **Step 2:** Follow the cell-by-cell instructions for visualization.
 * **Step 3:** Export your results to PDF directly from the browser.
 
