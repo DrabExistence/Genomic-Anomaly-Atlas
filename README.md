@@ -47,6 +47,18 @@ Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline 
     ```bash
     python Genomic_Pipeline.py
     ```
+### 🐳 Run with Docker (Recommended)
+If you have Docker installed, you don't need to install Python or fonts manually.
+
+* **Step 1: Build the image**
+    ```bash
+    docker build -t genomic-atlas .
+    ```
+* **Step 2: Run the analysis**
+    ```bash
+    docker run -v $(pwd):/app genomic-atlas
+    ```
+    *Note: The output report (`Genomic_Report.pdf`) will appear in your current folder.*
 
 ### 3. Interactive Demo (Lab Environment)
 * **Current Version:** Click to launch the latest analytical environment: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrabExistence/genomic-anomaly-atlas/blob/main/Demo_Colab(new).ipynb)
