@@ -1,106 +1,158 @@
-import re  # Стандартная библиотека для поиска текста
-from Bio import Entrez  # Библиотека для работы с биологическими БД
-from clinvar_api import get_clinvar_significance_for_list, load_rs_from_file  # новый модуль связи с ClinVar
-from fpdf import FPDF
+import re
+import os
+from Bio import Entrez
+from tqdm.auto import tqdm
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
+# --- НАСТРОЙКИ NCBI ---
+Entrez.email = "zzzender20@gmail.com" 
+
+# --- БЛОК 1: РАБОТА С CLINVAR API ---
+
+def get_clinvar_significance(rs_id):
+    """Получает клиническую значимость для одного rs-номера."""
+    try:
+        search_query = f"{rs_id}[Variant ID]"
+        handle = Entrez.esearch(db="clinvar", term=search_query)
+        search_results = Entrez.read(handle)
+        handle.close()
+        
+        if not search_results['IdList']:
+            return "No ClinVar record found."
+
+        clinvar_id = search_results['IdList'][0]
+        handle = Entrez.esummary(db="clinvar", id=clinvar_id)
+        summary = Entrez.read(handle, validate=False)
+        handle.close()
+
+        return summary['DocumentSummarySet']['DocumentSummary'][0]['germline_classification']['description']
+    except Exception:
+        return "Data unavailable."
+
+def get_clinvar_significance_for_list(rs_ids_list):
+    """Пакетная проверка списка rs-номеров."""
+    results = {}
+    clinvar_ids = []
+    id_map = {}
+
+    print(f"🔍 Запрос данных для {len(rs_ids_list)} вариантов...")
+    for rs_id in tqdm(rs_ids_list, desc="Поиск в базе"):
+        try:
+            handle = Entrez.esearch(db="clinvar", term=f"{rs_id}[Variant ID]")
+            search_res = Entrez.read(handle)
+            handle.close()
+            if search_res['IdList']:
+                cid = search_res['IdList'][0]
+                clinvar_ids.append(cid)
+                id_map[cid] = rs_id
+            else:
+                results[rs_id] = "Not Found"
+        except:
+            results[rs_id] = "Error"
+
+    if clinvar_ids:
+        try:
+            handle = Entrez.esummary(db="clinvar", id=",".join(clinvar_ids), validate=False)
+            summaries = Entrez.read(handle, validate=False)
+            handle.close()
+            for doc in summaries['DocumentSummarySet']['DocumentSummary']:
+                uid = str(doc.get('uid') or doc.attributes.get('uid'))
+                orig_rs = id_map.get(uid)
+                if orig_rs:
+                    results[orig_rs] = doc['germline_classification']['description']
+        except:
+            pass
+    return results
+
+def load_rs_from_file(filepath):
+    """Загрузка rs-номеров из файла."""
+    if not os.path.exists(filepath):
+        return []
+    with open(filepath, 'r') as f:
+        return [line.strip() for line in f if line.strip()]
+
+# --- БЛОК 2: ГЕНЕТИЧЕСКИЙ СКАНЕР ---
 
 def universal_genomic_scanner(sequence):
+    """Анализ сырой последовательности ДНК."""
     print("\n" + "="*45)
-    print("🚀 STARTING MULTI-LEVEL GENOMIC SCAN v3.0")
+    print("🚀 STARTING GENOMIC SCAN v3.0")
     print("="*45)
-    
-    # 1. Расчет GC-состава
+
+    # GC-состав
     gc = (sequence.count('G') + sequence.count('C')) / len(sequence) * 100
-    print(f"📊 [STRUCTURAL] GC-Content: {gc:.2f}%")
-    
-    # 2. ПРОВЕРКА ПОВТОРОВ (HTT)
+    print(f"📊 GC-Content: {gc:.2f}%")
+
+    # CAG Повторы (Гентингтон)
     repeats = re.findall(r'(?:CAG){3,}', sequence)
     if repeats:
         count = len(max(repeats, key=len)) // 3
         status = "⚠️ PATHOGENIC" if count >= 36 else "✅ NORMAL"
-        print(f"🧬 [REPEATS] HTT Gene: {count} CAG repeats ({status})")
-    else:
-        print(f"🧬 [REPEATS] HTT Gene: No expansions detected (Normal)")
+        print(f"🧬 HTT Gene: {count} CAG repeats ({status})")
 
-    # 3. ПРОВЕРКА SIRT1 (Долголетие)
-    if sequence[0] == 'G':
-        print("🌟 [BIOHACK] SIRT1: Longevity Variant 'G' detected!")
-        print("🔍 Connecting to ClinVar to verify...")
-        clinical_status = get_clinvar_significance('rs7069102') 
-        print(f"   └─ Official Scientific Status: {clinical_status}")
-
-    # 4. ПРОВЕРКА LRP5 (Кости-титан)
-    if len(sequence) > 171 and sequence[171] == 'T':
-        print("🦾 [SUPERPOWER] LRP5: High Bone Density variant found!")
-        print("🔍 Verifying Clinical Significance...")
-        clinical_status = get_clinvar_significance('rs121908675')
-        print(f"   └─ ClinVar Result: {clinical_status}")
-
-    # 5. ПРОВЕРКА TERT (Кнопка рака)
-    if len(sequence) > 228 and sequence[228] == 'T':
-        print("🚨 [CANCER RISK] TERT Promoter Mutation Found (C228T)")
-
+    # SIRT1 (Долголетие)
+    if sequence.startswith('G'):
+        print("🌟 SIRT1: Longevity Variant 'G' detected!")
+    
     print("="*45 + "\n")
 
-# ТЕСТОВЫЕ ДАННЫЕ (Полная проверка всех систем)
-# Добавили CAG-повторы, чтобы пункт 2 тоже сработал
-super_human_dna = "G" + ("CAG" * 40) + ("A" * 48) + "T" + ("A" * 56) + "T" + ("C" * 20)
-universal_genomic_scanner(super_human_dna)
+# --- БЛОК 3: ГЕНЕРАЦИЯ ОТЧЕТА (PDF) ---
 
 def save_report_to_pdf(results, filename="Genomic_Report.pdf"):
-    """Создает PDF-файл на основе словаря с результатами."""
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", 'B', 16)
-    pdf.cell(200, 10, txt="Genomic Anomaly Atlas: Diagnostic Report", ln=True, align='C')
-    pdf.ln(10)
+    """Создание PDF отчета с поддержкой кириллицы."""
+    try:
+        # Пытаемся подключить шрифт DejaVu (стандарт для Linux/Colab)
+        pdfmetrics.registerFont(TTFont('DejaVuSans', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
+        font_name = 'DejaVuSans'
+    except:
+        # Если шрифта нет (например, на Windows), используем стандартный Helvetica
+        font_name = 'Helvetica'
+
+    c = canvas.Canvas(filename, pagesize=letter)
+    width, height = letter
+
+    c.setFont(f"{font_name}-Bold" if font_name != 'Helvetica' else 'Helvetica-Bold', 16)
+    c.drawCentredString(width / 2.0, height - 50, "Genomic Anomaly Atlas: Diagnostic Report")
+
+    y = height - 100
+    c.setFont(font_name, 12)
+    c.drawString(50, y, "Variant (ID)")
+    c.drawString(200, y, "Clinical Significance")
+    c.line(50, y-5, 550, y-5)
     
-    pdf.set_font("Arial", 'B', 12)
-    pdf.cell(50, 10, "Variant (ID)", border=1)
-    pdf.cell(140, 10, "Clinical Significance", border=1)
-    pdf.ln()
-    
-    pdf.set_font("Arial", size=10)
+    y -= 25
+    c.setFont(font_name, 10)
     for rs, status in results.items():
-        pdf.cell(50, 10, txt=rs.upper(), border=1)
-        pdf.cell(140, 10, txt=str(status), border=1)
-        pdf.ln()
-    
-    pdf.output(filename)
-    print(f"📄 PDF Report saved as: {filename}")
+        if y < 50:
+            c.showPage()
+            y = height - 50
+        c.drawString(50, y, rs.upper())
+        c.drawString(200, y, str(status))
+        y -= 20
+
+    c.save()
+    print(f"📄 PDF Report saved: {filename}")
 
 def generate_professional_report(input_file):
-    """
-    Массовая проверка мутаций из файла и автоматическое создание PDF.
-    """
-    print("\n" + "═"*60)
-    print("📋 GENOMIC ANOMALY ATLAS: BATCH PROCESSING")
-    print("═"*60)
-    
-    # 1. Загружаем список rs-номеров из файла
+    """Основной процесс: Файл -> API -> PDF."""
     rs_list = load_rs_from_file(input_file)
     if not rs_list:
-        print("❌ Error: No variants found in the input file.")
-        return
-    
-    # 2. Получаем данные из ClinVar (пакетный запрос)
-    print(f"🔍 Fetching data for {len(rs_list)} variants...")
-    results = get_clinvar_significance_for_list(rs_list)
-    
-    # 3. Вывод в консоль для быстрой проверки
-    for rs, status in results.items():
-        print(f" -> {rs.upper()}: {status}")
-    
-    # 4. ВЫЗОВ PDF ГЕНЕРАТОРА (та самая 'основная логика')
-    save_report_to_pdf(results)
-    
-    print("═"*60 + "\n")
+        # Создаем тестовый файл, если его нет
+        with open(input_file, "w") as f:
+            f.write("rs1137282\nrs121908675\nrs7069102")
+        rs_list = load_rs_from_file(input_file)
 
-# --- ГЛАВНЫЙ ЗАПУСК ---
+    results = get_clinvar_significance_for_list(rs_list)
+    save_report_to_pdf(results)
+
+# --- ЗАПУСК ---
 if __name__ == "__main__":
-    # Тест сканера сырой ДНК
-    test_dna = "G" + ("CAG" * 40) + ("A" * 48) + "T" + ("A" * 56) + "T" + ("C" * 20)
-    universal_genomic_scanner(test_dna)
+    # 1. Анализ тестовой ДНК
+    dna_sample = "G" + ("CAG" * 40) + "ATCG" * 20
+    universal_genomic_scanner(dna_sample)
     
-    # Тест пакетной обработки и генерации PDF
-    # Убедись, что файл rs_numbers.txt лежит в той же папке в Colab!
+    # 2. Пакетный отчет
     generate_professional_report("rs_numbers.txt")
