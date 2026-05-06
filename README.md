@@ -1,56 +1,73 @@
 # 🧬 Genomic Anomaly Atlas
 
-Welcome to the **Genomic Anomaly Atlas** — a curated collection of genetic mutations, splicing errors, and structural variations analyzed through the lens of bioinformatics and AI.
+Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline and curated collection of genetic variations. This project bridges the gap between raw DNA sequences and clinical insights using AI-driven automation.
 
-This repository serves as a digital laboratory for investigating how small changes in the DNA sequence lead to significant biological consequences.
-
-## 🏛 Atlas Structure
-
-The atlas is divided into several sections based on the type of genetic anomaly:
-
-### 1. Splicing & Isoforms
-Analysis of how alternative splicing creates protein diversity and how its disruption leads to disease.
-* **[FGFR2 Analysis](FGFR2-Analysis.md):** The switch between epithelial (IIIb) and mesenchymal (IIIc) isoforms.
-
-### 2. Nucleotide Repeats (Expansions)
-Study of "molecular stutters" where DNA sequences repeat abnormally.
-* **[Huntington’s Disease (HTT)](Huntington_Disease.md):** Analysis of CAG trinucleotide repeats and neurodegenerative risk.
-
-### 3. Point Mutations (SNPs)
-Single letter changes that alter enzyme function or disease predisposition.
-* **[MTHFR Polymorphism](MTHFR_Analysis.md):** C677T variant and its impact on the folate cycle.
-
-### 4. Non-Coding & Regulatory Regions
-Mutations in the "switches" of our genome that control gene expression.
-* **[TERT Promoter](TERT_Promoter_Cancer.md):** Investigating the "immortality switch" in cancer cells.
-
-### 5: Genomic Visualization
-Using computational methods to "see" the genome's structure.
-* **[Visual Genome Analysis](Visual_Genome_Analysis.md):** Sliding window algorithm for GC-content distribution and promoter identification.
-
-### 6: AI-Driven Pipeline & Automation
-Moving from manual analysis to automated workflows.
-* **[Genomic Pipeline](Genomic_Pipeline.md):** An integrated master script that combines GC-profiling, SNP detection, and repeat expansion checks into a single analytical run.
-
-### 7: Biohacking & Human Augmentation
-Exploring genetic variants that enhance human capabilities.
-* **[Sirtuin 1 (SIRT1)](Longevity_sirt1.md):** The "longevity gene" linked to DNA repair and lifespan extension.
-* **[LRP5 (D171V)](Titan_bones.md):** The "titan bone" mutation causing extreme bone density and fracture resistance.
-
-### 8: API Integration
-The atlas is now connected to the **NCBI ClinVar** database. 
-* Automatically fetches clinical significance (Pathogenic, Benign, etc.) for detected variants.
-* Supports batch processing for large-scale genomic datasets.
+## 🚀 Key Features: v3.0 "The Architect Update"
+* **Multi-Level Scanning:** Automated detection of cancer markers (TERT), neurodegenerative repeats (HTT), and "Superhuman" variants (SIRT1, LRP5).
+* **Live API Integration:** Real-time connection to **NCBI ClinVar** to fetch official clinical significance.
+* **Batch Processing:** Ability to process hundreds of variants from a simple text file.
+* **Clinical Reporting:** Automated generation of professional PDF diagnostic reports.
 
 ---
 
-## 🛠 Tech Stack & Methodology
-* **Logic & Architecture:** Theoretical modeling of genetic pathways.
-* **Analysis:** Python-based scripts for sequence processing and pattern recognition.
-* **AI-Assisted Research:** Leveraging Large Language Models to interpret complex biological data.
-* **External Data:** Real-time NCBI ClinVar API integration via Biopython.
+## 🏛 Atlas Structure
+
+### 1. Splicing & Point Mutations
+* **[FGFR2 Analysis](FGFR2-Analysis.md):** Disruption of epithelial/mesenchymal isoforms.
+* **[MTHFR Polymorphism](MTHFR_Analysis.md):** C677T variant and folate cycle impact.
+
+### 2. Genetic Anomalies & "Superpowers"
+* **[Huntington’s Disease (HTT)](Huntington_Disease.md):** CAG trinucleotide repeat analysis.
+* **[Sirtuin 1 (SIRT1)](Longevity_sirt1.md):** Longevity variants (rs7069102).
+* **[LRP5 (D171V)](Titan_bones.md):** The "Titan Bone" mutation (rs121908675) for bone density.
+
+### 3. Oncology & Regulatory Analysis
+* **[TERT Promoter](TERT_Promoter_Cancer.md):** Investigating the "immortality switch" in cancer cells.
+* **[Visual Genome Analysis](Visual_Genome_Analysis.md):** GC-content distribution and promoter identification.
+
+---
+
+## 🛠 Installation & Usage
+
+### 1. Requirements
+* **Step 1:** Install **Python 3.8+**.
+* **Step 2:** Ensure you have **External Libraries:** `biopython`, `reportlab`, `tqdm`.
+* **Step 3:** For correct PDF generation (Cyrillic support), install **DejaVu fonts**:
+    ```bash
+    sudo apt-get install -y fonts-dejavu-core
+    ```
+
+### 2. Quick Start
+* **Step 1:** Clone the repository:
+    ```bash
+    git clone [https://github.com/DrabExistence/genomic-anomaly-atlas.git](https://github.com/DrabExistence/genomic-anomaly-atlas.git)
+    ```
+* **Step 2:** Install dependencies using:
+    ```bash
+    pip install -r requirements.txt
+    ```
+* **Step 3:** Add your target RS-numbers to `rs_numbers.txt`.
+* **Step 4:** Run the master pipeline:
+    ```bash
+    python Genomic_Pipeline.py
+    ```
+
+### 3. Interactive Demo
+* **Step 1:** Open the **[Demo Notebook](Demo_Colab.ipynb)** in Google Colab.
+* **Step 2:** Follow the cell-by-cell instructions for visualization.
+* **Step 3:** Export your results to PDF directly from the browser.
+
+---
+
+## 💻 Tech Stack
+* **Language:** Python
+* **Bioinformatics:** Biopython (Entrez API), Regular Expressions for motif seeking.
+* **Reporting:** ReportLab (PDF Generation).
+* **Automation:** Batch processing & API validation.
+
+---
 
 ## 👨‍🔬 About the Author
-I am an **AI-Bioinformatics Architect** focused on automating the analysis of genetic data and building intuitive tools for genomic interpretation. 
+I am an **AI-Bioinformatics Architect**. I build tools that transform complex genomic data into actionable biological insights.
 
-*Currently exploring the boundaries between human and mammalian genomics.*
+*Currently exploring the boundaries between human genomics and AI-driven diagnostics.*
