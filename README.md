@@ -2,28 +2,24 @@
 
 Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline and curated collection of genetic variations. This project bridges the gap between raw DNA sequences and clinical insights using AI-driven automation.
 
-## 🚀 Key Features: v3.0 "The Architect Update"
-* **Multi-Level Scanning:** Automated detection of cancer markers (TERT), neurodegenerative repeats (HTT), and "Superhuman" variants (SIRT1, LRP5).
-* **Live API Integration:** Real-time connection to **NCBI ClinVar** to fetch official clinical significance.
-* **Batch Processing:** Ability to process hundreds of variants from a simple text file.
-* **Clinical Reporting:** Automated generation of professional PDF diagnostic reports.
+## 🚀 Key Features: v4.0 "The Visual Architect"
+* **Visual Genomic Landscape:** Automated generation of GC-content distribution plots for structural analysis.
+* **Exon Similarity Analysis:** Comparative engine to identify genetic isoforms and splicing patterns.
+* **Multi-Level Scanning:** Detection of cancer markers (TERT), neurodegenerative repeats (HTT), and longevity variants (SIRT1).
+* **Live API Integration:** Real-time connection to **NCBI ClinVar** for clinical validation.
+* **Automated Reporting:** Professional PDF generation with integrated data visualization.
 
 ---
 
 ## 🏛 Atlas Structure
 
-### 1. Splicing & Point Mutations
-* **[FGFR2 Analysis](FGFR2-Analysis.md):** Disruption of epithelial/mesenchymal isoforms.
-* **[MTHFR Polymorphism](MTHFR_Analysis.md):** C677T variant and folate cycle impact.
+### 1. Splicing & Isoforms
+* **[FGFR2 Analysis](FGFR2-Analysis.md):** The switch between epithelial (IIIb) and mesenchymal (IIIc) isoforms.
+* **[Similarity Module]:** Automated homology calculation between sample DNA and reference exons.
 
 ### 2. Genetic Anomalies & "Superpowers"
-* **[Huntington’s Disease (HTT)](Huntington_Disease.md):** CAG trinucleotide repeat analysis.
-* **[Sirtuin 1 (SIRT1)](Longevity_sirt1.md):** Longevity variants (rs7069102).
-* **[LRP5 (D171V)](Titan_bones.md):** The "Titan Bone" mutation (rs121908675) for bone density.
-
-### 3. Oncology & Regulatory Analysis
-* **[TERT Promoter](TERT_Promoter_Cancer.md):** Investigating the "immortality switch" in cancer cells.
-* **[Visual Genome Analysis](Visual_Genome_Analysis.md):** GC-content distribution and promoter identification.
+* **[Huntington’s Disease (HTT)](Huntington_Disease.md):** CAG trinucleotide repeat expansion analysis.
+* **[Longevity & Density]:** Analysis of SIRT1 (rs7069102) and LRP5 (rs121908675) variants.
 
 ---
 
@@ -31,7 +27,7 @@ Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline 
 
 ### 1. Requirements
 * **Step 1:** Install **Python 3.8+**.
-* **Step 2:** Ensure you have **External Libraries:** `biopython`, `reportlab`, `tqdm`.
+* **Step 2:** Ensure you have the necessary **External Libraries**: `biopython`, `reportlab`, `tqdm`, `matplotlib`.
 * **Step 3:** For correct PDF generation (Cyrillic support), install **DejaVu fonts**:
     ```bash
     sudo apt-get install -y fonts-dejavu-core
@@ -46,23 +42,23 @@ Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline 
     ```bash
     pip install -r requirements.txt
     ```
-* **Step 3:** Add your target RS-numbers to `rs_numbers.txt`.
+* **Step 3:** Add your target RS-numbers to `rs_numbers.txt` and raw DNA to `sample_dna.txt`.
 * **Step 4:** Run the master pipeline:
     ```bash
     python Genomic_Pipeline.py
     ```
 
-### 3. Interactive Demo
-* **Step 1:** Open the **[Demo Notebook](https://colab.research.google.com/github/DrabExistence/genomic-anomaly-atlas/blob/main/Demo_Colab(new).ipynb)** in Google Colab.
-* **Step 2:** Follow the cell-by-cell instructions for visualization.
-* **Step 3:** Export your results to PDF directly from the browser.
+### 3. Interactive Demo (Lab Environment)
+* **Current Version:** Click to launch the latest analytical environment: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrabExistence/genomic-anomaly-atlas/blob/main/Demo_Colab(new).ipynb)
+* **Legacy Versions:** For project evolution history, see `Demo_Colab(old).ipynb`.
+* **Instructions:** Follow the cell-by-cell execution in Colab to generate plots and export the final PDF report.
 
 ---
 
 ## 💻 Tech Stack
 * **Language:** Python
 * **Bioinformatics:** Biopython (Entrez API), Regular Expressions for motif seeking.
-* **Reporting:** ReportLab (PDF Generation).
+* **Reporting:** ReportLab (PDF Generation), Matplotlib (Data Viz).
 * **Automation:** Batch processing & API validation.
 
 ---
