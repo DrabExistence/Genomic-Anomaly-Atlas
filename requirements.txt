@@ -1,3 +1,4 @@
-reportlab
 biopython
+reportlab
 tqdm
+matplotlib
