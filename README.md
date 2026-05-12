@@ -1,25 +1,26 @@
 # 🧬 Genomic Anomaly Atlas
 
-Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline and curated collection of genetic variations. This project bridges the gap between raw DNA sequences and clinical insights using AI-driven automation.
+Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline and curated collection of genetic variations. This project bridges the gap between raw DNA sequences and clinical insights using AI-driven automation and visual data analysis.
 
 ## 🚀 Key Features: v4.0 "The Visual Architect"
-* **Visual Genomic Landscape:** Automated generation of GC-content distribution plots for structural analysis.
-* **Exon Similarity Analysis:** Comparative engine to identify genetic isoforms and splicing patterns.
+* **Visual Genomic Landscape:** Automated generation of GC-content distribution plots (Radar) for structural analysis.
+* **Exon Homology Search:** Comparative engine to identify genetic isoforms (e.g., FGFR2 IIIb vs IIIc).
 * **Multi-Level Scanning:** Detection of cancer markers (TERT), neurodegenerative repeats (HTT), and longevity variants (SIRT1).
-* **Live API Integration:** Real-time connection to **NCBI ClinVar** for clinical validation.
-* **Automated Reporting:** Professional PDF generation with integrated data visualization.
+* **Live API Integration:** Real-time connection to **NCBI ClinVar** for official clinical validation.
+* **Professional Reporting:** Automated PDF generation with integrated charts and clinical summaries.
 
 ---
 
-## 🏛 Atlas Structure
+## 🏛 Project Structure
 
 ### 1. Splicing & Isoforms
-* **[FGFR2 Analysis](FGFR2-Analysis.md):** The switch between epithelial (IIIb) and mesenchymal (IIIc) isoforms.
-* **[Similarity Module]:** Automated homology calculation between sample DNA and reference exons.
+* **[FGFR2 Analysis]:** Disruption of epithelial/mesenchymal isoforms.
+* **[Exon Similarity Module]:** Automated homology calculation between sample DNA and reference sequences.
 
 ### 2. Genetic Anomalies & "Superpowers"
-* **[Huntington’s Disease (HTT)](Huntington_Disease.md):** CAG trinucleotide repeat expansion analysis.
-* **[Longevity & Density]:** Analysis of SIRT1 (rs7069102) and LRP5 (rs121908675) variants.
+* **[Huntington’s Disease (HTT)]:** CAG trinucleotide repeat expansion analysis.
+* **[Sirtuin 1 (SIRT1)]:** Longevity variant (rs7069102) identification.
+* **[LRP5 (D171V)]:** The "Titan Bone" mutation (rs121908675) analysis.
 
 ---
 
@@ -27,51 +28,48 @@ Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline 
 
 ### 1. Requirements
 * **Step 1:** Install **Python 3.8+**.
-* **Step 2:** Ensure you have the necessary **External Libraries**: `biopython`, `reportlab`, `tqdm`, `matplotlib`.
+* **Step 2:** Install dependencies:
+    ```bash
+    pip install biopython reportlab tqdm matplotlib
+    ```
 * **Step 3:** For correct PDF generation (Cyrillic support), install **DejaVu fonts**:
     ```bash
     sudo apt-get install -y fonts-dejavu-core
     ```
 
-### 2. Quick Start
-* **Step 1:** Clone the repository:
-    ```bash
-    git clone [https://github.com/DrabExistence/genomic-anomaly-atlas.git](https://github.com/DrabExistence/genomic-anomaly-atlas.git)
-    ```
-* **Step 2:** Install dependencies using:
-    ```bash
-    pip install -r requirements.txt
-    ```
-* **Step 3:** Add your target RS-numbers to `rs_numbers.txt` and raw DNA to `sample_dna.txt`.
-* **Step 4:** Run the master pipeline:
+### 2. Quick Start (CLI)
+You can run the pipeline with default settings or specify your own files via command line:
+* **Run with defaults:**
     ```bash
     python Genomic_Pipeline.py
     ```
-### 🐳 Run with Docker (Recommended)
-If you have Docker installed, you don't need to install Python or fonts manually.
+* **Custom Analysis:**
+    ```bash
+    python Genomic_Pipeline.py --input rs_numbers.txt --dna sample_dna.txt --output MyReport.pdf
+    ```
 
-* **Step 1: Build the image**
+### 🐳 Run with Docker (Recommended)
+If you have Docker installed, you don't need to install Python or fonts manually:
+1. **Build the image:**
     ```bash
     docker build -t genomic-atlas .
     ```
-* **Step 2: Run the analysis**
+2. **Run the analysis:**
     ```bash
     docker run -v $(pwd):/app genomic-atlas
     ```
-    *Note: The output report (`Genomic_Report.pdf`) will appear in your current folder.*
 
 ### 3. Interactive Demo (Lab Environment)
-* **Current Version:** Click to launch the latest analytical environment: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrabExistence/genomic-anomaly-atlas/blob/main/Demo_Colab(new).ipynb)
+* **Current Version:** Click to launch the latest analytical environment: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrabExistence/genomic-anomaly-atlas/blob/main/Genomic_Anomaly_Atlas.ipynb)
 * **Legacy Versions:** For project evolution history, see `Demo_Colab(old).ipynb`.
-* **Instructions:** Follow the cell-by-cell execution in Colab to generate plots and export the final PDF report.
 
 ---
 
 ## 💻 Tech Stack
 * **Language:** Python
 * **Bioinformatics:** Biopython (Entrez API), Regular Expressions for motif seeking.
-* **Reporting:** ReportLab (PDF Generation), Matplotlib (Data Viz).
-* **Automation:** Batch processing & API validation.
+* **Reporting:** ReportLab (PDF), Matplotlib (Data Viz).
+* **Environment:** Docker, Google Colab.
 
 ---
 
