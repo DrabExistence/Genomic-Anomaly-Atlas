@@ -61,7 +61,7 @@ If you have Docker installed, you don't need to install Python or fonts manually
 
 ### 3. Interactive Demo (Lab Environment)
 * **Current Version:** Click to launch the latest analytical environment: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrabExistence/genomic-anomaly-atlas/blob/main/Genomic_Anomaly_Atlas.ipynb)
-* **Legacy Versions:** For project evolution history, see `Demo_Colab(old).ipynb`.
+* **Legacy Archive:** Explore previous development stages in the [oldversions](./oldversions/) folder.
 
 ---
 
