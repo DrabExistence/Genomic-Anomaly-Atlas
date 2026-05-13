@@ -21,12 +21,12 @@
 ## 🏛 Структура проекта
 
 * `Genomic_Anomaly_Atlas.ipynb` — Основная интерактивная среда (Google Colab).
-* `Genomic_Pipeline.py` — Универсальный скрипт для терминала или Docker.
-* **modules/** — Исследовательские модули и база знаний:
-    * `FGFR2-Analysis.md` — Исследование сплайсинга и изоформ.
-    * `Huntington_Disease.md` — Анализ тринуклеотидных повторов (HTT).
-    * `clinvar_api.py` — Вспомогательный модуль для запросов к NCBI.
-* `test_data.vcf` — Тестовый образец данных для проверки пайплайна.
+* `Genomic_Pipeline.py` — Универсальный скрипт для запуска в терминале или Docker.
+* **modules/** — Исследовательские модули и база знаний (FGFR2, Huntington, ClinVar API).
+* `test_data.vcf` — Тестовый образец геномных вариаций в формате VCF.
+* `requirements.txt` — Список зависимостей для быстрой установки окружения.
+* `sample_dna.txt` — (Опционально) Входной файл с сырой последовательностью ДНК.
+* `rs_numbers.txt` — (Опционально) Список RS-идентификаторов для анализа.
 
 
 ---
@@ -40,7 +40,7 @@
 Для работы необходим Python 3.8+ и следующие библиотеки:
 
 ```bash
-pip install biopython reportlab tqdm matplotlib
+pip install -r requirements.txt
 ```
 ---
 
