@@ -1,4 +1,4 @@
-# 🧬 Genomic Anomaly Atlas
+# Genomic Anomaly Atlas
 
 **Genomic Anomaly Atlas** — это профессиональный конвейер (pipeline) для анализа генетических вариаций. Проект объединяет биоинформатическую обработку данных, поиск клинических соответствий в NCBI ClinVar и автоматическую генерацию PDF-отчетов.
 
@@ -18,7 +18,7 @@
 ---
 
 
-## 🏛 Структура проекта
+## Структура проекта
 
 * `Genomic_Anomaly_Atlas.ipynb` — Основная интерактивная среда (Google Colab).
 * `Genomic_Pipeline.py` — Универсальный скрипт для запуска в терминале или Docker.
@@ -32,7 +32,7 @@
 ---
 
 
-## 🛠 Установка и запуск
+## Установка и запуск
 
 
 ### 1. Требования
@@ -68,14 +68,14 @@ python Genomic_Pipeline.py --input rs_numbers.txt
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrabExistence/Genomic-Anomaly-Atlas/blob/main/Genomic_Anomaly_Atlas.ipynb)
 
-**🐳 Docker (Изолированная среда)**
+## 🐳 Docker (Изолированная среда)
 Использование Docker гарантирует наличие всех необходимых системных зависимостей и шрифтов:
 
 ```bash
 docker build -t genomic-atlas .
 docker run -v $(pwd):/app genomic-atlas
 ```
-**👨‍🔬 Автор**
+## Автор
 **AI-Bioinformatics Architect** — Разработка систем автоматизированной интерпретации геномных данных.
 
 Проект создан для упрощения анализа редких генетических вариаций и наглядной визуализации геномного ландшафта.
