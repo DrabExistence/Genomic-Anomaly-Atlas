@@ -1,79 +1,81 @@
 # 🧬 Genomic Anomaly Atlas
 
-Welcome to the **Genomic Anomaly Atlas** — a professional analytical pipeline and curated collection of genetic variations. This project bridges the gap between raw DNA sequences and clinical insights using AI-driven automation and visual data analysis.
+**Genomic Anomaly Atlas** — это профессиональный конвейер (pipeline) для анализа генетических вариаций. Проект объединяет биоинформатическую обработку данных, поиск клинических соответствий в NCBI ClinVar и автоматическую генерацию PDF-отчетов.
 
-## 🚀 Key Features: v4.0 "The Visual Architect"
-* **Visual Genomic Landscape:** Automated generation of GC-content distribution plots (Radar) for structural analysis.
-* **Exon Homology Search:** Comparative engine to identify genetic isoforms (e.g., FGFR2 IIIb vs IIIc).
-* **Multi-Level Scanning:** Detection of cancer markers (TERT), neurodegenerative repeats (HTT), and longevity variants (SIRT1).
-* **Live API Integration:** Real-time connection to **NCBI ClinVar** for official clinical validation.
-* **Professional Reporting:** Automated PDF generation with integrated charts and clinical summaries.
 
 ---
 
-## 🏛 Project Structure
 
-### 1. Splicing & Isoforms
-* **[FGFR2 Analysis]:** Disruption of epithelial/mesenchymal isoforms.
-* **[Exon Similarity Module]:** Automated homology calculation between sample DNA and reference sequences.
+## 🚀 Основные возможности v4.5
 
-### 2. Genetic Anomalies & "Superpowers"
-* **[Huntington’s Disease (HTT)]:** CAG trinucleotide repeat expansion analysis.
-* **[Sirtuin 1 (SIRT1)]:** Longevity variant (rs7069102) identification.
-* **[LRP5 (D171V)]:** The "Titan Bone" mutation (rs121908675) analysis.
+* **VCF Support:** Прямая обработка файлов Variant Call Format (VCF).
+* **Exon Analysis:** Дифференциация изоформ FGFR2 (анализ сходства IIIb и IIIc).
+* **Genomic Landscape:** Визуализация GC-состава («Генетический радар») для поиска аномалий.
+* **ClinVar Integration:** Проверка патогенности вариантов через официальный API.
+* **Auto-Reporting:** Создание PDF-отчетов с графиками.
 
----
-
-## 🛠 Installation & Usage
-
-### 1. Requirements
-* **Step 1:** Install **Python 3.8+**.
-* **Step 2:** Install dependencies:
-    ```bash
-    pip install biopython reportlab tqdm matplotlib
-    ```
-* **Step 3:** For correct PDF generation (Cyrillic support), install **DejaVu fonts**:
-    ```bash
-    sudo apt-get install -y fonts-dejavu-core
-    ```
-
-### 2. Quick Start (CLI)
-You can run the pipeline with default settings or specify your own files via command line:
-* **Run with defaults:**
-    ```bash
-    python Genomic_Pipeline.py
-    ```
-* **Custom Analysis:**
-    ```bash
-    python Genomic_Pipeline.py --input rs_numbers.txt --dna sample_dna.txt --output MyReport.pdf
-    ```
-
-### 🐳 Run with Docker (Recommended)
-If you have Docker installed, you don't need to install Python or fonts manually:
-1. **Build the image:**
-    ```bash
-    docker build -t genomic-atlas .
-    ```
-2. **Run the analysis:**
-    ```bash
-    docker run -v $(pwd):/app genomic-atlas
-    ```
-
-### 3. Interactive Demo (Lab Environment)
-* **Current Version:** Click to launch the latest analytical environment: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrabExistence/genomic-anomaly-atlas/blob/main/Genomic_Anomaly_Atlas.ipynb)
-* **Legacy Archive:** Explore previous development stages in the [oldversions](./oldversions/) folder.
 
 ---
 
-## 💻 Tech Stack
-* **Language:** Python
-* **Bioinformatics:** Biopython (Entrez API), Regular Expressions for motif seeking.
-* **Reporting:** ReportLab (PDF), Matplotlib (Data Viz).
-* **Environment:** Docker, Google Colab.
+
+## 🏛 Структура проекта
+
+* `Genomic_Anomaly_Atlas.ipynb` — Основная интерактивная среда (Google Colab).
+* `Genomic_Pipeline.py` — Универсальный скрипт для терминала или Docker.
+* **modules/** — Исследовательские модули и база знаний:
+    * `FGFR2-Analysis.md` — Исследование сплайсинга и изоформ.
+    * `Huntington_Disease.md` — Анализ тринуклеотидных повторов (HTT).
+    * `clinvar_api.py` — Вспомогательный модуль для запросов к NCBI.
+* `test_data.vcf` — Тестовый образец данных для проверки пайплайна.
+
 
 ---
 
-## 👨‍🔬 About the Author
-I am an **AI-Bioinformatics Architect**. I build tools that transform complex genomic data into actionable biological insights.
 
-*Currently exploring the boundaries between human genomics and AI-driven diagnostics.*
+## 🛠 Установка и запуск
+
+
+### 1. Требования
+
+Для работы необходим Python 3.8+ и следующие библиотеки:
+
+```bash
+pip install biopython reportlab tqdm matplotlib
+```
+---
+
+
+
+### 2. Запуск через Терминал (CLI)
+
+
+Скрипт поддерживает гибкую настройку через аргументы командной строки. Это основной способ интеграции в автоматизированные системы.
+
+
+**Анализ VCF файла:**
+
+```bash
+python Genomic_Pipeline.py --vcf test_data.vcf --output Result.pdf
+```
+**Анализ по списку RS-номеров (из файла):**
+
+```bash
+python Genomic_Pipeline.py --input rs_numbers.txt
+```
+### 3. Работа в Google Colab
+
+Вы можете запустить интерактивную версию проекта прямо в браузере. Она поддерживает визуализацию графиков прямо внутри блокнота:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrabExistence/Genomic-Anomaly-Atlas/blob/main/Genomic_Anomaly_Atlas.ipynb)
+
+**🐳 Docker (Изолированная среда)**
+Использование Docker гарантирует наличие всех необходимых системных зависимостей и шрифтов:
+
+```bash
+docker build -t genomic-atlas .
+docker run -v $(pwd):/app genomic-atlas
+```
+**👨‍🔬 Автор**
+**AI-Bioinformatics Architect** — Разработка систем автоматизированной интерпретации геномных данных.
+
+Проект создан для упрощения анализа редких генетических вариаций и наглядной визуализации геномного ландшафта.
