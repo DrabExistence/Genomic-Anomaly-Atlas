@@ -69,13 +69,19 @@ python Genomic_Pipeline.py --input rs_numbers.txt
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrabExistence/Genomic-Anomaly-Atlas/blob/main/Genomic_Anomaly_Atlas.ipynb)
 
+---
+
 ## 🐳 Docker (Изолированная среда)
-Использование Docker гарантирует наличие всех необходимых системных зависимостей и шрифтов:
+
+Использование Docker гарантирует наличие всех необходимых системных зависимостей для работы пайплайна:
 
 ```bash
 docker build -t genomic-atlas .
 docker run -v $(pwd):/app genomic-atlas
 ```
+
+---
+
 ## Автор
 **AI-Bioinformatics Architect** — Разработка систем автоматизированной интерпретации геномных данных.
 
